@@ -2,13 +2,13 @@
 
 ## Status
 
-|               | rv64gc | arm64 |
-| ------------- | ------ | ----- |
-| stream        |     ✔ |    ✔ |
-| gups          |     ❌ |    ❌ |
-| spatter       |     ✔ |    ✔ |
-| npb           |     ✔ |    ✔ |
-| point-chasing |     ❌ |    ❌ |
+|               | rv64gc | arm64 | arm64sve |
+| ------------- | ------ | ----- | -------- |
+| stream        |     ✔ |    ✔ |       ✔ |
+| gups          |     ❌ |    ❌ |       ❌ |
+| spatter       |     ✔ |    ✔ |       ✔ |
+| npb           |     ✔ |    ✔ |       ✔ |
+| point-chasing |     ❌ |    ❌ |       ❌ |
 
 ## Download Packer
 
