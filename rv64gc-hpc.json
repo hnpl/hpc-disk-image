@@ -39,6 +39,8 @@
                 "rv64gc-hpc/gups-install.sh",
                 "rv64gc-hpc/npb-install.sh",
                 "rv64gc-hpc/spatter-install.sh",
+                "rv64gc-hpc/permutating-gather-install.sh",
+                "rv64gc-hpc/permutating-scatter-install.sh",
                 "rv64gc-hpc/memory-latency-test-install.sh"
             ]
         }

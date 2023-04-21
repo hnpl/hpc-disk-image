@@ -42,6 +42,8 @@
                 "arm64sve-hpc/gups-install.sh",
                 "arm64sve-hpc/npb-install.sh",
                 "arm64sve-hpc/spatter-install.sh",
+                "arm64sve-hpc/permutating-gather-install.sh",
+                "arm64sve-hpc/permutating-scatter-install.sh",
                 "arm64sve-hpc/memory-latency-test-install.sh"
             ]
         }
