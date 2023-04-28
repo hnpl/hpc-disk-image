@@ -7,10 +7,12 @@
 | stream              |     ✔ |    ✔ |       ✔ |
 | gups                |     ❌ |    ❌ |       ❌ |
 | spatter             |     ✔ |    ✔ |       ✔ |
-| npb                 |     ✔ |    ✔ |       ✔ |
+| npb                 |     ✔ \*|    ✔\* |       ✔\* |
 | point-chasing       |     ❌ |    ❌ |       ❌ |
 | permutating-scatter |     ✔ |    ✔ |       ✔ |
 | permutating-gather  |     ✔ |    ✔ |       ✔ |
+
+\*Compiling is.D.x resulted in compilation error.
 
 ## Download Packer
 
