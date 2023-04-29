@@ -76,6 +76,37 @@ ssh-keygen -C "ubuntu@localhost"
 ssh-add ~/.ssh/id_rsa
 ```
 
+### Making a Cloud Init Config Image
+
+Typically a cloud image will use `cloud-init` to initialize a cloud instance.
+In this case, we will use `cloud-init` to set up an SSH key so that we can login
+to the guest QEMU instance.
+This is necessary because the downloaded cloud image does not contain any user.
+Setting up a cloud init config allows us to create a user on the first boot.
+
+We will create a file called `cloud.txt` to store the cloud init configuration.
+Typically the configuration looks like,
+
+```
+#cloud-config
+users:
+  - name: ubuntu
+    lock_passwd: false
+    groups: sudo
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    shell: /bin/bash
+    ssh-authorized-keys:
+      - ssh-rsa AAAAJLKFJEWOIJRNJF... <- insert the public key here (e.g., the content of ~/.ssh/id_rsa.pub)
+```
+
+Then, we create a cloud init image that we can input to qemu later,
+
+```sh
+cloud-localds --disk-format qcow2 cloud.img cloud.txt
+```
+
+Note that this image is of qcow2 format.
+
 ### Launching a QEMU Instance
 
 ```sh
@@ -85,7 +116,7 @@ dd if=/dev/zero of=flash1.img bs=1M count=64
 qemu-system-aarch64 -m 16384 -smp 8 -cpu cortex-a57 -M virt \
     -nographic -pflash flash0.img -pflash flash1.img \
     -drive if=none,file=arm64-hpc-2204.img,id=hd0 -device virtio-blk-device,drive=hd0 \
-    -drive if=none,id=cloud,file=cloud.img,format=raw -device virtio-blk-device,drive=cloud \
+    -drive if=none,id=cloud,file=cloud.img -device virtio-blk-device,drive=cloud \
     -netdev user,id=user0 -device virtio-net-device,netdev=eth0 \
     -netdev user,id=eth0,hostfwd=tcp::5555-:22
 ```
