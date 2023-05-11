@@ -28,7 +28,7 @@ See [https://ubuntu.com/download/risc-v](https://ubuntu.com/download/risc-v).
 
 ```sh
 wget https://cdimage.ubuntu.com/releases/22.04.2/release/ubuntu-22.04.2-preinstalled-server-riscv64+unmatched.img.xz
-xz dk ubuntu-22.04.2-preinstalled-server-riscv64+unmatched.img.xz
+xz -dk ubuntu-22.04.2-preinstalled-server-riscv64+unmatched.img.xz
 mv ubuntu-22.04.2-preinstalled-server-riscv64+unmatched.img rv64gc-hpc-2204.img
 qemu-img resize rv64gc-hpc-2204.img +20G
 ```
@@ -43,6 +43,18 @@ qemu-system-riscv64 -machine virt -nographic \
      -device virtio-net-device,netdev=eth0 \
      -netdev user,id=eth0,hostfwd=tcp::5555-:22 \
      -drive file=rv64gc-hpc-2204.img,format=raw,if=virtio
+```
+
+### Changing the Default Password
+
+Upon the first boot, when you try to login to the `ubuntu` account, the OS will ask you to change the password.
+The default password is `ubuntu`.
+The new password should be `automato`, which is specified in `rv64gc-hpc.json`.
+
+To login to the guest machine,
+
+```sh
+ssh -p 5555 ubuntu@localhost
 ```
 
 ### Running the Packer Script
