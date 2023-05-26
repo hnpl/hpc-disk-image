@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# if IGNORE_M5 is :not 1, the command will be read from m5 readfile
+# if IGNORE_M5 is not 1, the command will be read from m5 readfile
 if ! [[ "$IGNORE_M5" == 1 ]]; then
     # m5 readfile returns the number of bytes read
     # if it returns 0, it means there's no inputted command
