@@ -1,15 +1,15 @@
 # Packer scripts for building HPC disk images
 
 ##### Table of Contents
-- [Status](#status)
-- [Downloading Packer](#downloading-packer)
-- [Dependencies](#dependencies)
-- [Building the rv64gc Disk Image](#building-the-rv64gc-disk-image)
-- [Building the arm64 Disk Image](#building-the-arm64-disk-image)
-- [Building the arm64sve Disk Image](#building-the-arm64sve-disk-image)
-- [Building the x86_64 Disk Image](#building-the-x86_64-disk-image)
+- [1. Status](#1-status)
+- [2. Downloading Packer](#2-downloading-packer)
+- [3. Dependencies](#3-dependencies)
+- [4. Building the rv64gc Disk Image](#4-building-the-rv64gc-disk-image)
+- [5. Building the arm64 Disk Image](#5-building-the-arm64-disk-image)
+- [6. Building the arm64sve Disk Image](#6-building-the-arm64sve-disk-image)
+- [7. Building the x86_64 Disk Image](#7-building-the-x86_64-disk-image)
 
-## Status
+## 1. Status
 
 |                     | rv64gc | arm64 | arm64sve | x86_64 |
 | ------------------- | ------ | ----- | -------- | ------ |
@@ -23,19 +23,19 @@
 
 \*Compiling is.D.x resulted in compilation error.
 
-## Downloading Packer
+## 2. Downloading Packer
 
 See [https://developer.hashicorp.com/packer/downloads](https://developer.hashicorp.com/packer/downloads).
 
-## Dependencies
+## 3. Dependencies
 
 ```sh
 apt-get install cloud-image-utils qemu-efi-aarch64 qemu-system qemu-utils
 ```
 
-## Building the rv64gc Disk Image
+## 4. Building the rv64gc Disk Image
 
-### Downloading the Pre-installed RISC-V Disk Image
+### 4.1 Downloading the Pre-installed RISC-V Disk Image
 
 We choose to work with this disk image because this disk image is known to work with QEMU.
 
@@ -48,7 +48,7 @@ mv ubuntu-22.04.2-preinstalled-server-riscv64+unmatched.img rv64gc-hpc-2204.img
 qemu-img resize rv64gc-hpc-2204.img +20G
 ```
 
-### Launching a QEMU Instance
+### 4.2 Launching a QEMU Instance
 
 ```sh
 qemu-system-riscv64 -machine virt -nographic \
@@ -60,7 +60,7 @@ qemu-system-riscv64 -machine virt -nographic \
      -drive file=rv64gc-hpc-2204.img,format=raw,if=virtio
 ```
 
-### Changing the Default Password
+### 4.3 Changing the Default Password
 
 Upon the first boot, when you try to login to the `ubuntu` account, the OS will ask you to change the password.
 The default password is `ubuntu`.
@@ -72,17 +72,17 @@ To login to the guest machine,
 ssh -p 5555 ubuntu@localhost
 ```
 
-### Running the Packer Script
+### 4.4 Running the Packer Script
 
-While the QEMU Instance is running,
+While the QEMU instance is running,
 
 ```sh
 ./packer build rv64gc-hpc.json
 ```
 
-## Building the arm64 Disk Image
+## 5. Building the arm64 Disk Image
 
-### Downloading the arm64 Cloud Disk Image
+### 5.1 Downloading the arm64 Cloud Disk Image
 
 See [https://cloud-images.ubuntu.com/](https://cloud-images.ubuntu.com/).
 
@@ -92,7 +92,7 @@ qemu-img convert ubuntu-22.04-server-cloudimg-arm64.img -O raw ./arm64-hpc-2204.
 qemu-img resize -f raw arm64-hpc-2204.img +20G
 ```
 
-### Setting up an SSH key pair
+### 5.2 Setting up an SSH key pair
 
 The default key path is `~/.ssh/id_rsa` might overwrite a current key.
 You can change the key path, and make a corresponding change in
@@ -103,7 +103,7 @@ ssh-keygen -C "ubuntu@localhost"
 ssh-add ~/.ssh/id_rsa
 ```
 
-### Making a Cloud Init Config Image
+### 5.3 Making a Cloud Init Config Image
 
 Typically a cloud image will use `cloud-init` to initialize a cloud instance.
 In this case, we will use `cloud-init` to set up an SSH key so that we can login
@@ -134,7 +134,7 @@ cloud-localds --disk-format qcow2 cloud.img cloud.txt
 
 Note that this image is of the qcow2 format.
 
-### Launching a QEMU Instance
+### 5.4 Launching a QEMU Instance
 
 ```sh
 dd if=/dev/zero of=flash0.img bs=1M count=64
@@ -148,21 +148,21 @@ qemu-system-aarch64 -m 16384 -smp 8 -cpu cortex-a57 -M virt \
     -netdev user,id=eth0,hostfwd=tcp::5555-:22
 ```
 
-### Running the Packer Script
+### 5.5 Running the Packer Script
 
-While the QEMU Instance is running,
+While the QEMU instance is running,
 
 ```sh
 ./packer build arm64-hpc.json
 ```
 
-## Building the arm64sve Disk Image
+## 6. Building the arm64sve Disk Image
 This is similar to building the arm disk image, except for the packer json file
 is now `arm64sve-hpc.json`.
 
-## Building the x86_64 Disk Image
+## 7. Building the x86_64 Disk Image
 
-### Downloading the x86_64 Cloud Disk Image
+### 7.1 Downloading the x86_64 Cloud Disk Image
 
 See [https://cloud-images.ubuntu.com/](https://cloud-images.ubuntu.com/).
 
@@ -172,7 +172,7 @@ qemu-img convert ubuntu-22.04-server-cloudimg-amd64.img -O raw ./x86_64-hpc-2204
 qemu-img resize -f raw ./x86_64-hpc-2204.img +20G
 ```
 
-### Setting up an SSH key pair
+### 7.2 Setting up an SSH key pair
 
 The default key path is `~/.ssh/id_rsa` might overwrite a current key.
 You can change the key path, and make a corresponding change in
@@ -183,7 +183,7 @@ ssh-keygen -C "ubuntu@localhost"
 ssh-add ~/.ssh/id_rsa
 ```
 
-### Making a Cloud Init Config Image
+### 7.3 Making a Cloud Init Config Image
 
 Typically a cloud image will use `cloud-init` to initialize a cloud instance.
 In this case, we will use `cloud-init` to set up an SSH key so that we can login
@@ -214,7 +214,7 @@ cloud-localds --disk-format qcow2 cloud.img cloud.txt
 
 Note that this image is of the qcow2 format.
 
-### Launching a QEMU Instance
+### 7.4 Launching a QEMU Instance
 
 ```sh
 qemu-system-x86_64 \
@@ -224,9 +224,9 @@ qemu-system-x86_64 \
      -drive if=none,id=cloud,file=cloud.img -device virtio-blk-pci,drive=cloud
 ```
 
-### Running the Packer Script
+### 7.5 Running the Packer Script
 
-While the QEMU Instance is running,
+While the QEMU instance is running,
 
 ```sh
 ./packer build x86_64-hpc.json
