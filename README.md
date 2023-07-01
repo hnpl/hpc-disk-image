@@ -18,11 +18,17 @@
 
 See [https://developer.hashicorp.com/packer/downloads](https://developer.hashicorp.com/packer/downloads).
 
+## Dependencies
+
+```sh
+apt-get install cloud-image-utils qemu-efi-aarch64 qemu-system qemu-utils
+```
+
 ## Building the rv64gc Disk Image
 
 ### Downloading the Pre-installed RISC-V Disk Image
 
-We chose this disk image because the disk image is known to work with QEMU.
+We choose to work with this disk image because this disk image is known to work with QEMU.
 
 See [https://ubuntu.com/download/risc-v](https://ubuntu.com/download/risc-v).
 
@@ -72,9 +78,9 @@ While the QEMU Instance is running,
 See [https://cloud-images.ubuntu.com/](https://cloud-images.ubuntu.com/).
 
 ```sh
-wget https://cloud-images.ubuntu.com/jammy/20230418/jammy-server-cloudimg-arm64.img
-qemu-img convert jammy-server-cloudimg-arm64.img -O raw ./arm64-hpc-2204.img
-qemu-img resize arm64-hpc-2204.img +20G
+wget https://cloud-images.ubuntu.com/releases/22.04/release-20230616/ubuntu-22.04-server-cloudimg-arm64.img
+qemu-img convert ubuntu-22.04-server-cloudimg-arm64.img -O raw ./arm64-hpc-2204.img
+qemu-img resize -f raw arm64-hpc-2204.img +20G
 ```
 
 ### Setting up an SSH key pair
@@ -117,13 +123,13 @@ Then, we create a cloud init image that we can input to qemu later,
 cloud-localds --disk-format qcow2 cloud.img cloud.txt
 ```
 
-Note that this image is of qcow2 format.
+Note that this image is of the qcow2 format.
 
 ### Launching a QEMU Instance
 
 ```sh
 dd if=/dev/zero of=flash0.img bs=1M count=64
-dd if=/usr/share/qemu-efi/QEMU_EFI.fd of=flash0.img conv=notrunc
+dd if=/usr/share/qemu-efi-aarch64/QEMU_EFI.fd of=flash0.img conv=notrunc
 dd if=/dev/zero of=flash1.img bs=1M count=64
 qemu-system-aarch64 -m 16384 -smp 8 -cpu cortex-a57 -M virt \
     -nographic -pflash flash0.img -pflash flash1.img \
