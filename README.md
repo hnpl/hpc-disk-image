@@ -11,15 +11,15 @@
 
 ## Status
 
-|                     | rv64gc | arm64 | arm64sve |
-| ------------------- | ------ | ----- | -------- |
-| stream              |     ✔ |    ✔ |       ✔ |
-| gups                |     ❌ |    ❌ |       ❌ |
-| spatter             |     ✔ |    ✔ |       ✔ |
-| npb                 |     ✔ \*|    ✔\* |       ✔\* |
-| point-chasing       |     ❌ |    ❌ |       ❌ |
-| permutating-scatter |     ✔ |    ✔ |       ✔ |
-| permutating-gather  |     ✔ |    ✔ |       ✔ |
+|                     | rv64gc | arm64 | arm64sve | x86_64 |
+| ------------------- | ------ | ----- | -------- | ------ |
+| stream              |     ✔ |    ✔ |       ✔ |     ✔ |
+| gups                |     ✔ |    ✔ |       ✔ |     ✔ |
+| spatter             |     ✔ |    ✔ |       ✔ |     ✔ |
+| npb                 |   ✔ \*|  ✔\* |     ✔\* |   ✔\* |
+| MemoryLatencyTest   |     ✔ |    ✔ |       ✔ |     ✔ |
+| permutating-scatter |     ✔ |    ✔ |       ✔ |     ✔ |
+| permutating-gather  |     ✔ |    ✔ |       ✔ |     ✔ |
 
 \*Compiling is.D.x resulted in compilation error.
 
