@@ -7,7 +7,7 @@
 - [Building the rv64gc Disk Image](#building-the-rv64gc-disk-image)
 - [Building the arm64 Disk Image](#building-the-arm64-disk-image)
 - [Building the arm64sve Disk Image](#building-the-arm64sve-disk-image)
-
+- [Building the x86_64 Disk Image](#building-the-x86_64-disk-image)
 
 ## Status
 
@@ -108,7 +108,7 @@ ssh-add ~/.ssh/id_rsa
 Typically a cloud image will use `cloud-init` to initialize a cloud instance.
 In this case, we will use `cloud-init` to set up an SSH key so that we can login
 to the guest QEMU instance.
-This is necessary because the downloaded cloud image does not contain any user.
+This is necessary as the downloaded cloud image does not contain any user.
 Setting up a cloud init config allows us to create a user on the first boot.
 
 We will create a file called `cloud.txt` to store the cloud init configuration.
@@ -159,3 +159,75 @@ While the QEMU Instance is running,
 ## Building the arm64sve Disk Image
 This is similar to building the arm disk image, except for the packer json file
 is now `arm64sve-hpc.json`.
+
+## Building the x86_64 Disk Image
+
+### Downloading the x86_64 Cloud Disk Image
+
+See [https://cloud-images.ubuntu.com/](https://cloud-images.ubuntu.com/).
+
+```sh
+wget https://cloud-images.ubuntu.com/releases/22.04/release-20230616/ubuntu-22.04-server-cloudimg-amd64.img
+qemu-img convert ubuntu-22.04-server-cloudimg-amd64.img -O raw ./x86_64-hpc-2204.img
+qemu-img resize -f raw ./x86_64-hpc-2204.img +20G
+```
+
+### Setting up an SSH key pair
+
+The default key path is `~/.ssh/id_rsa` might overwrite a current key.
+You can change the key path, and make a corresponding change in
+`x86_64-hpc.json`.
+
+```sh
+ssh-keygen -C "ubuntu@localhost"
+ssh-add ~/.ssh/id_rsa
+```
+
+### Making a Cloud Init Config Image
+
+Typically a cloud image will use `cloud-init` to initialize a cloud instance.
+In this case, we will use `cloud-init` to set up an SSH key so that we can login
+to the guest QEMU instance.
+This is necessary as the downloaded cloud image does not contain any user.
+Setting up a cloud init config allows us to create a user on the first boot.
+
+We will create a file called `cloud.txt` to store the cloud init configuration.
+Typically the configuration looks like,
+
+```
+#cloud-config
+users:
+  - name: ubuntu
+    lock_passwd: false
+    groups: sudo
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    shell: /bin/bash
+    ssh-authorized-keys:
+      - ssh-rsa AAAAJLKFJEWOIJRNJF... <- insert the public key here (e.g., the content of ~/.ssh/id_rsa.pub)
+```
+
+Then, we create a cloud init image that we can input to qemu later,
+
+```sh
+cloud-localds --disk-format qcow2 cloud.img cloud.txt
+```
+
+Note that this image is of the qcow2 format.
+
+### Launching a QEMU Instance
+
+```sh
+qemu-system-x86_64 \
+     -nographic -m 16384 -smp 8 \
+     -device virtio-net-pci,netdev=eth0 -netdev user,id=eth0,hostfwd=tcp::5555-:22 \
+     -drive file=x86_64-hpc-2204.img,format=raw \
+     -drive if=none,id=cloud,file=cloud.img -device virtio-blk-pci,drive=cloud
+```
+
+### Running the Packer Script
+
+While the QEMU Instance is running,
+
+```sh
+./packer build x86_64-hpc.json
+```
