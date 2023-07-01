@@ -1,5 +1,14 @@
 # Packer scripts for building HPC disk images
 
+##### Table of Contents
+- [Status](#status)
+- [Downloading Packer](#downloading-packer)
+- [Dependencies](#dependencies)
+- [Building the rv64gc Disk Image](#building-the-rv64gc-disk-image)
+- [Building the arm64 Disk Image](#building-the-arm64-disk-image)
+- [Building the arm64sve Disk Image](#building-the-arm64sve-disk-image)
+
+
 ## Status
 
 |                     | rv64gc | arm64 | arm64sve |
@@ -14,7 +23,7 @@
 
 \*Compiling is.D.x resulted in compilation error.
 
-## Download Packer
+## Downloading Packer
 
 See [https://developer.hashicorp.com/packer/downloads](https://developer.hashicorp.com/packer/downloads).
 
