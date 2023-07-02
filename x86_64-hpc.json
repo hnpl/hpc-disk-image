@@ -36,15 +36,15 @@
             "execute_command": "echo '{{ user `ssh_password` }}' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
             "scripts":
             [
-                "x86_64-hpc/packages-install.sh",
-                "x86_64-hpc/m5-install.sh",
-                "x86_64-hpc/stream-install.sh",
-                "x86_64-hpc/gups-install.sh",
-                "x86_64-hpc/npb-install.sh",
-                "x86_64-hpc/spatter-install.sh",
-                "x86_64-hpc/permutating-gather-install.sh",
-                "x86_64-hpc/permutating-scatter-install.sh",
-                "x86_64-hpc/memory-latency-test-install.sh"
+                "x86_64-hpc/1.packages-install.sh",
+                "x86_64-hpc/2.m5-install.sh",
+                "x86_64-hpc/3.stream-install.sh",
+                "x86_64-hpc/4.gups-install.sh",
+                "x86_64-hpc/5.npb-install.sh",
+                "x86_64-hpc/6.spatter-install.sh",
+                "x86_64-hpc/7.permutating-gather-install.sh",
+                "x86_64-hpc/8.permutating-scatter-install.sh",
+                "x86_64-hpc/9.memory-latency-test-install.sh"
             ]
         }
     ],
