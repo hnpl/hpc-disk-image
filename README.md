@@ -9,6 +9,8 @@
 - [6. Building the arm64sve Disk Image](#6-building-the-arm64sve-disk-image)
 - [7. Building the x86_64 Disk Image](#7-building-the-x86_64-disk-image)
 
+---
+
 ## 1. Status
 
 |                     | rv64gc | arm64 | arm64sve | x86_64 |
@@ -23,15 +25,21 @@
 
 \*Compiling is.D.x resulted in compilation error.
 
+---
+
 ## 2. Downloading Packer
 
 See [https://developer.hashicorp.com/packer/downloads](https://developer.hashicorp.com/packer/downloads).
+
+---
 
 ## 3. Dependencies
 
 ```sh
 apt-get install cloud-image-utils qemu-efi-aarch64 qemu-system qemu-utils
 ```
+
+---
 
 ## 4. Building the rv64gc Disk Image
 
@@ -79,6 +87,8 @@ While the QEMU instance is running,
 ```sh
 ./packer build rv64gc-hpc.json
 ```
+
+---
 
 ## 5. Building the arm64 Disk Image
 
@@ -166,9 +176,13 @@ ssh -p 5555 ubuntu@localhost
 [in guest] sudo poweroff
 ```
 
+---
+
 ## 6. Building the arm64sve Disk Image
 This is similar to building the arm disk image, except for the packer json file
 is now `arm64sve-hpc.json`.
+
+---
 
 ## 7. Building the x86_64 Disk Image
 
