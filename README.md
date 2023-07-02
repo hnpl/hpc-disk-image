@@ -156,6 +156,16 @@ While the QEMU instance is running,
 ./packer build arm64-hpc.json
 ```
 
+After packer finished the installation, the following commands will login to the QEMU instance
+and properly shutdown the machine.
+This is necessasry to make sure that the disk image is not corrupted.
+
+```sh
+ssh-add ~/.ssh/id_rsa
+ssh -p 5555 ubuntu@localhost
+[in guest] sudo poweroff
+```
+
 ## 6. Building the arm64sve Disk Image
 This is similar to building the arm disk image, except for the packer json file
 is now `arm64sve-hpc.json`.
@@ -230,4 +240,14 @@ While the QEMU instance is running,
 
 ```sh
 ./packer build x86_64-hpc.json
+```
+
+After packer finished the installation, the following commands will login to the QEMU instance
+and properly shutdown the machine.
+This is necessasry to make sure that the disk image is not corrupted.
+
+```sh
+ssh-add ~/.ssh/id_rsa
+ssh -p 5555 ubuntu@localhost
+[in guest] sudo poweroff
 ```
