@@ -10,6 +10,7 @@ if ! [[ "$IGNORE_M5" == 1 ]]; then
         echo "//------"
         cat script.sh
         echo "//------"
+        m5 exit
         ./script.sh
         sleep 1
         m5 exit
