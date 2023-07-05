@@ -33,7 +33,7 @@
         },
         {
             "type": "shell",
-            "execute_command": "echo '{{ user `ssh_password` }}' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+            "execute_command": "{{.Vars}} bash '{{.Path}}'",
             "scripts":
             [
                 "arm64-hpc/1.packages-install.sh",
