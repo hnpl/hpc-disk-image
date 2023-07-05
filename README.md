@@ -8,6 +8,7 @@
 - [5. Building the arm64 Disk Image](#5-building-the-arm64-disk-image)
 - [6. Building the arm64sve Disk Image](#6-building-the-arm64sve-disk-image)
 - [7. Building the x86_64 Disk Image](#7-building-the-x86_64-disk-image)
+- [A. Troubleshooting](#A-troubleshooting)
 
 ---
 
@@ -264,4 +265,29 @@ This is necessasry to make sure that the disk image is not corrupted.
 ssh-add ~/.ssh/id_rsa
 ssh -p 5555 ubuntu@localhost
 [in guest] sudo poweroff
+```
+
+## A. Troubleshooting
+
+### Problem with Packer waiting for SSH
+
+We recommend the following steps,
+
+- Trying to ssh to the QEMU instance before calling `packer`.
+
+```sh
+ssh -p 5555 ubuntu@localhost
+```
+
+In case of errors, the following commands might be useful,
+
+```sh
+ssh-keygen -f "$HOME/.ssh/known_hosts" -R "[localhost]:5555" # remove old fingerprints of localhost:5555
+eval `ssh-agent -s` # this is useful when PACKER complains about getting SSH config: "packer-builder-null plugin: [DEBUG] Error getting SSH config: SSH_AUTH_SOCK is not set"
+```
+
+- Trying to use `PACKER_LOG` environment variable to see what is happening to the SSH connection, e.g.,
+
+```sh
+PACKER_LOG=1 ./packer build rv64gc-hpc.json
 ```
