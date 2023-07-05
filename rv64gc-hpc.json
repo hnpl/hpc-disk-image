@@ -30,18 +30,18 @@
         },
         {
             "type": "shell",
-            "execute_command": "echo '{{ user `ssh_password` }}' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+            "execute_command": "{{.Vars}} bash '{{.Path}}'",
             "scripts":
             [
-                "rv64gc-hpc/packages-install.sh",
-                "rv64gc-hpc/m5-install.sh",
-                "rv64gc-hpc/stream-install.sh",
-                "rv64gc-hpc/gups-install.sh",
-                "rv64gc-hpc/npb-install.sh",
-                "rv64gc-hpc/spatter-install.sh",
-                "rv64gc-hpc/permutating-gather-install.sh",
-                "rv64gc-hpc/permutating-scatter-install.sh",
-                "rv64gc-hpc/memory-latency-test-install.sh"
+                "rv64gc-hpc/1.packages-install.sh",
+                "rv64gc-hpc/2.m5-install.sh",
+                "rv64gc-hpc/3.stream-install.sh",
+                "rv64gc-hpc/4.gups-install.sh",
+                "rv64gc-hpc/5.npb-install.sh",
+                "rv64gc-hpc/6.spatter-install.sh",
+                "rv64gc-hpc/7.permutating-gather-install.sh",
+                "rv64gc-hpc/8.permutating-scatter-install.sh",
+                "rv64gc-hpc/9.memory-latency-test-install.sh"
             ]
         }
     ],

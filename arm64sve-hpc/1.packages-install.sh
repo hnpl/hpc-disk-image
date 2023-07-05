@@ -13,6 +13,8 @@ sudo systemctl disable snapd.service
 sudo systemctl disable snapd.socket
 sudo systemctl disable snapd.seeded.service
 sudo apt remove --purge -y snapd
+sudo apt -y autoremove
+sudo apt -y autopurge
 
 # Removing mounting /boot/efi
 sudo sed -i '/\/boot\/efi/d' /etc/fstab
