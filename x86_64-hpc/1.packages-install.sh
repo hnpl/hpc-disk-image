@@ -8,6 +8,7 @@ pip install scons --user
 pip install meson --user
 
 # Removing snapd
+sudo snap remove $(snap list | awk '!/^Name|^core/ {print $1}') # not removing the core package as others depend on it
 sudo snap remove $(snap list | awk '!/^Name/ {print $1}')
 sudo systemctl disable snapd.service
 sudo systemctl disable snapd.socket
