@@ -34,3 +34,4 @@ sudo systemctl disable systemd-networkd
 
 # stop MOTD
 touch $HOME/.hushlogin
+sudo chmod -x /etc/update-motd.d/*
