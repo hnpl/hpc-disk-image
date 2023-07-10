@@ -31,3 +31,6 @@ sudo systemctl set-default multi-user.target
 # don't bring up network
 sudo systemctl stop systemd-networkd
 sudo systemctl disable systemd-networkd
+
+# stop MOTD
+touch $HOME/.hushlogin
