@@ -24,3 +24,7 @@ sudo systemctl disable boot-efi.mount
 
 # Removing cloud-init
 sudo touch /etc/cloud/cloud-init.disabled
+
+sudo -i
+systemctl set-default multi-user.target
+exit
