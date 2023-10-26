@@ -300,6 +300,7 @@ In case of errors, the following commands might be useful,
 ```sh
 ssh-keygen -f "$HOME/.ssh/known_hosts" -R "[localhost]:5555" # remove old fingerprints of localhost:5555
 eval `ssh-agent -s` # this is useful when PACKER complains about getting SSH config: "packer-builder-null plugin: [DEBUG] Error getting SSH config: SSH_AUTH_SOCK is not set"
+ssh-add ~/.ssh/id_rsa # need to add the identity file again after setting up the SSH agent
 ```
 
 - Trying to use `PACKER_LOG` environment variable to see what is happening to the SSH connection, e.g.,
