@@ -41,7 +41,8 @@
                 "rv64gc-hpc/6.spatter-install.sh",
                 "rv64gc-hpc/7.permutating-gather-install.sh",
                 "rv64gc-hpc/8.permutating-scatter-install.sh",
-                "rv64gc-hpc/9.memory-latency-test-install.sh"
+                "rv64gc-hpc/9.memory-latency-test-install.sh",
+                "rv64gc-hpc/10.gapbs-install.sh"
             ]
         }
     ],

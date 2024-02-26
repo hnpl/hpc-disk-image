@@ -44,7 +44,8 @@
                 "x86_64-hpc/6.spatter-install.sh",
                 "x86_64-hpc/7.permutating-gather-install.sh",
                 "x86_64-hpc/8.permutating-scatter-install.sh",
-                "x86_64-hpc/9.memory-latency-test-install.sh"
+                "x86_64-hpc/9.memory-latency-test-install.sh",
+                "x86_64-hpc/10.gapbs-install.sh"
             ]
         }
     ],

@@ -23,8 +23,10 @@
 | MemoryLatencyTest   |     ✔ |    ✔ |       ✔ |     ✔ |
 | permutating-scatter |     ✔ |    ✔ |       ✔ |     ✔ |
 | permutating-gather  |     ✔ |    ✔ |       ✔ |     ✔ |
+| gapbs               |     ? |     ? |     ?\*\* |     ? | 
 
 \*Compiling is.D.x resulted in compilation error.
+\*\* The SVE compilation flags have not been added to the Makefile's of GAPBS.
 
 ---
 
@@ -54,7 +56,7 @@ See [https://ubuntu.com/download/risc-v](https://ubuntu.com/download/risc-v).
 wget https://cdimage.ubuntu.com/releases/22.04.2/release/ubuntu-22.04.2-preinstalled-server-riscv64+unmatched.img.xz
 xz -dk ubuntu-22.04.2-preinstalled-server-riscv64+unmatched.img.xz
 mv ubuntu-22.04.2-preinstalled-server-riscv64+unmatched.img rv64gc-hpc-2204.img
-qemu-img resize rv64gc-hpc-2204.img +20G
+qemu-img resize rv64gc-hpc-2204.img +60G
 ```
 
 ### 4.2 Launching a QEMU Instance
@@ -100,7 +102,7 @@ See [https://cloud-images.ubuntu.com/](https://cloud-images.ubuntu.com/).
 ```sh
 wget https://cloud-images.ubuntu.com/releases/22.04/release-20230616/ubuntu-22.04-server-cloudimg-arm64.img
 qemu-img convert ubuntu-22.04-server-cloudimg-arm64.img -O raw ./arm64-hpc-2204.img
-qemu-img resize -f raw arm64-hpc-2204.img +20G
+qemu-img resize -f raw arm64-hpc-2204.img +60G
 ```
 
 ### 5.2 Setting up an SSH key pair
@@ -210,7 +212,7 @@ See [https://cloud-images.ubuntu.com/](https://cloud-images.ubuntu.com/).
 ```sh
 wget https://cloud-images.ubuntu.com/releases/22.04/release-20230616/ubuntu-22.04-server-cloudimg-amd64.img
 qemu-img convert ubuntu-22.04-server-cloudimg-amd64.img -O raw ./x86_64-hpc-2204.img
-qemu-img resize -f raw ./x86_64-hpc-2204.img +20G
+qemu-img resize -f raw ./x86_64-hpc-2204.img +60G
 ```
 
 ### 7.2 Setting up an SSH key pair
