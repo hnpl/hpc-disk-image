@@ -77,6 +77,10 @@ Upon the first boot, when you try to login to the `ubuntu` account, the OS will 
 The default password is `ubuntu`.
 The new password should be `automato`, which is specified in `rv64gc-hpc.json`.
 
+**Note:** Before continuing the following step, please note that you should wait until the "OpenBSD Secure Shell server" (i.e., the SSH server) to be brought up before logging in to the guest machine.
+The SSH server bringing up might be slow, and it might be done after the login prompt appears on the guest system.
+If you tried to ssh to the guest before the SSH server is brought up, it will result in authentication error.
+
 To login to the guest machine,
 
 ```sh
