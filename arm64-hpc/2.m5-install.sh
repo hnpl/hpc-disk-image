@@ -6,7 +6,7 @@
 cd $HOME
 git clone https://gem5.googlesource.com/public/gem5/
 cd $HOME/gem5/util/m5
-/home/ubuntu/.local/bin/scons arm64.CROSS_COMPILE= build/arm64/out/m5
+/home/ubuntu/.local/bin/scons arm64.CROSS_COMPILE= build/arm64/out/m5 -j`nproc`
 
 sudo mv /home/ubuntu/serial-getty@.service /lib/systemd/system/
 sudo mv /home/ubuntu/gem5/util/m5/build/arm64/out/m5 /sbin
