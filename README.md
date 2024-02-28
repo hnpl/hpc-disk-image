@@ -53,9 +53,9 @@ We choose to work with this disk image because this disk image is known to work 
 See [https://ubuntu.com/download/risc-v](https://ubuntu.com/download/risc-v).
 
 ```sh
-wget https://cdimage.ubuntu.com/releases/22.04.2/release/ubuntu-22.04.2-preinstalled-server-riscv64+unmatched.img.xz
-xz -dk ubuntu-22.04.2-preinstalled-server-riscv64+unmatched.img.xz
-mv ubuntu-22.04.2-preinstalled-server-riscv64+unmatched.img rv64gc-hpc-2204.img
+wget https://cdimage.ubuntu.com/releases/22.04.4/release/ubuntu-22.04.4-preinstalled-server-riscv64+unmatched.img.xz
+xz -dk ubuntu-22.04.4-preinstalled-server-riscv64+unmatched.img.xz
+mv ubuntu-22.04.4-preinstalled-server-riscv64+unmatched.img rv64gc-hpc-2204.img
 qemu-img resize rv64gc-hpc-2204.img +60G
 ```
 
